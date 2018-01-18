@@ -1,0 +1,31 @@
+{% extends 'template/defaultTemplate.html.twig' %}
+
+{% block page_title %}<title>ADMIN</title>{% endblock %}
+
+{% block content %}
+    <table>
+        <th>
+            Admin Manager
+        </th>
+        <tr>
+            <td class="align-center">
+                <a href="{{ url('admin_game_index') }}">Game manager</a>
+            </td>
+        </tr>
+        <tr>
+           <td class="align-center">
+               <a href="{{ url('admin_rating_index') }}">Rating manager</a>
+           </td>
+        </tr>
+        <tr>
+            <td class="align-center">
+                <a href="{{ url('admin_user_index') }}">User manager</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="align-center">
+                <a href="{{ url('doc_api') }}">Doc Api</a>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

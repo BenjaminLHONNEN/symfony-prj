@@ -1,0 +1,15 @@
+game:
+    resource: "@GameBundle/Controller/"
+    type:     annotation
+    prefix:   /
+api:
+    resource: "@ApiBundle/Controller/"
+    type:     annotation
+    prefix:   /
+doc_api:
+    resource: "@DocApiBundle/Controller/"
+    type:     annotation
+    prefix:   /doc/
+
+logout:
+    path: /logout

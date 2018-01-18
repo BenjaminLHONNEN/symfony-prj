@@ -1,0 +1,14 @@
+{% extends 'template/defaultTemplate.html.twig' %}
+
+{% block page_title %}<title>Sign Up</title>{% endblock %}
+
+{% block content %}
+    <h1 class="divSignTitle">Sign Up</h1>
+    <div class="divSign">
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'template/defaultTemplate.html.twig' %}
+
+{% block page_title %}<title>Rating List </title>{% endblock %}
+
+{% block content %}
+    <h1>Ratings list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Userid</th>
+                <th>Note</th>
+                <th>Comment</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rating in ratings %}
+            <tr>
+                <td><a href="{{ path('admin_rating_show', { 'id': rating.id }) }}">{{ rating.id }}</a></td>
+                <td>{{ rating.userId }}</td>
+                <td>{{ rating.note }}</td>
+                <td>{{ rating.comment }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_rating_show', { 'id': rating.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_rating_edit', { 'id': rating.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_rating_new') }}">Create a new rating</a>
+        </li>
+    </ul>
+{% endblock %}

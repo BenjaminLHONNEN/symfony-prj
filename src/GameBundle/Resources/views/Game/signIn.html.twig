@@ -1,0 +1,26 @@
+{% extends 'template/defaultTemplate.html.twig' %}
+
+{% block page_title %}<title>Sign In</title>{% endblock %}
+
+{% block content %}
+    <h1 class="divSignTitle">Sign In</h1>
+    <div class="divSign">
+
+        {% if error %}
+            <div class="review-red">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        <form action="{{ path('login')}}" method="post">
+            <label for="username">Mail : </label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+
+            <label for="password">Password : </label>
+            <input type="password" id="password" name="_password"/>
+
+            <input type="hidden" name="_target_path" value="/game/list"/>
+
+            <button class="button-6-1" type="submit">login</button>
+        </form>
+
+    </div>
+{% endblock %}

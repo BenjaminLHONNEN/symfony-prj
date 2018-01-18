@@ -1,0 +1,15 @@
+{% extends 'template/defaultTemplate.html.twig' %}
+
+{% block page_title %}<title>{{ game.name }}</title>{% endblock %}
+
+{% block content %}
+
+    <div style="width: 100%;text-align: center;">
+        <h1> {{ status_code }} {{ status_text }}</h1>
+        <p><a href="{{ url('game_list') }}"> >>> Games List <<< </a></p>
+        <img style="display: inline-block; margin: 3px;" src="{{ asset("asset/images/panic.gif") }}">
+        <img style="display: inline-block; margin: 3px;" src="{{ asset("asset/images/panic2.gif") }}">
+        <img style="display: inline-block; margin: 3px;" src="{{ asset("asset/images/nothingToSee.gif") }}">
+    </div>
+
+{% endblock %}

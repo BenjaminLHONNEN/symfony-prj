@@ -1,0 +1,102 @@
+{% extends 'template/defaultTemplate.html.twig' %}
+
+{% block page_title %}<title> Game List </title>{% endblock %}
+
+{% block content %}
+    <div class="align-center">
+        <input style="display: inline-block;font-size: 2em;padding: 7px;" type="text" placeholder="Research A Game" id="search">
+    </div>
+    <script>
+        var input = document.getElementById("search");
+        input.onkeyup = function () {
+            $('#body-table')[0].innerHTML = "<tr><td colspan='3' class='align-center'><i class=\"fa fa-spinner fa-spin fa-3x fa-fw\"></i></td></tr>";
+            $.get("../../api/searchGame/" + $('#search')[0].value, function (data) {
+                    $('#body-table')[0].innerHTML = "";
+                    for (var x = 0; x < data["Games"].length; x++) {
+                        var game = data["Games"][x], assetDefault = "{{ asset("") }}",
+                            gameDetail = "{{ url('game_detail', {'gameId': 0}) }}".replace("0", ""),
+                            ratingClass = "review-orange";
+                        if (game["rating"] < 3.5) {
+                            ratingClass = "review-red";
+                        } else if (game["rating"] < 6.5) {
+                            ratingClass = "review-orange";
+                        } else {
+                            ratingClass = "review-green";
+                        }
+                        console.info(game);
+                        console.info(gameDetail + game["id"]);
+                        $('#body-table')[0].innerHTML += "<tr class=\"appear-fade linkGamelist\"\n" +
+                            "                onclick=\"document.location = '" + gameDetail + game["id"] + "'\">\n" +
+                            "                <td><img class=\"image\" src=\"" + assetDefault + game["image"] + "\"></td>\n" +
+                            "                <td><h2 id=\"gameName\">" + game["name"] + "</h2>\n" +
+                            "                    <p>" + game["description"] + "</p></td>\n" +
+                            "                <td width=\"150px\" style=\"text-align: center;\">\n" +
+                            "                    <span\n" +
+                            "                                class=\"" + ratingClass + "\" \n" +
+                            "                    >\n" +
+                            "                        " + game["rating"] + " | 10\n" +
+                            "                    </span></td>\n" +
+                            "            </tr>"
+                    }
+
+                }
+            )
+        };
+
+    </script>
+    <table>
+        <thead>
+        <tr class="appear-fade">
+            <th></th>
+            <th class="link"
+                onclick="document.location = '{{ url('game_list', {'sort': 'name','order':invertSortMode}) }}'">
+                <h1 style="display: inline-block;">Name</h1>
+                <div style="padding: 2px;display: inline-block">
+                    {% if sortTarget == "name" and sortMode == "ascend" %}
+                        <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
+                    {% elseif sortTarget == "name" %}
+                        <i class="fa fa-angle-up fa-lg" aria-hidden="true"></i>
+                    {% endif %}
+                </div>
+            </th>
+            <th>
+                <h1 style="display: inline-block;">Review</h1>
+                <div style="padding: 2px;display: inline-block">
+                    {% if sortTarget == "rating" and sortMode == "ascend" %}
+                        <i class="fa fa-angle-up fa-lg" aria-hidden="true"></i>
+                    {% elseif sortTarget == "rating" %}
+                        <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
+                    {% endif %}
+                </div>
+            </th>
+        </tr>
+        </thead>
+        <tbody id="body-table">
+        {% for game in games %}
+            {% set review = game.getAverageRating() | round(2, 'floor') %}
+            <tr class="appear-fade linkGamelist"
+                onclick="document.location = '{{ url('game_detail', {'gameId': game.id}) }}'">
+                <td><img class="image" src="{{ asset(game.image) }}"></td>
+                <td><h2 id="gameName">{{ game.name }}</h2>
+                    <p>{{ game.description }}</p></td>
+                <td width="150px" style="text-align: center;">
+                    <span
+                            {% if review < 3.5 %}
+                                class="review-red"
+                            {% elseif review < 6.5 %}
+                                class="review-orange"
+                            {% else %}
+                                class="review-green"
+                            {% endif %}
+                    >
+                        {{ review }} | 10
+                    </span></td>
+            </tr>
+        {% else %}
+            <tr class="appear-fade">
+                <td colspan="3">No Game Found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'template/defaultTemplate.html.twig' %}
+
+{% block page_title %}<title>Doc API</title>{% endblock %}
+
+{% block content %}
+
+    <div>
+        <div>
+            <h2>Get User Information By User ID : </h2>
+            <p>{{ app.request.getSchemeAndHttpHost }}/api/user/USER_ID</p>
+            <input id="user-id-get-user-by-id" placeholder="USER_ID" type="text">
+            <button onclick="getUserbyId()" class="button-6-1">Send Request</button>
+        </div>
+        <div id="api-result-get-user-by-id">
+
+        </div>
+        <div>
+            <h2>Get Game By Game ID : </h2>
+            <p>{{ app.request.getSchemeAndHttpHost }}/api/gameById/GAME_ID</p>
+            <input id="game-id-get-game-by-id" placeholder="GAME_ID" type="text">
+            <button onclick="getGamebyId()" class="button-6-1">Send Request</button>
+        </div>
+        <div id="api-result-get-game-by-id">
+
+        </div>
+        <div>
+            <h2>Get Games : </h2>
+            <p>{{ app.request.getSchemeAndHttpHost }}/api/games</p>
+            <button onclick="getGames()" class="button-6-1">Send Request</button>
+        </div>
+        <div id="api-result-get-games">
+
+        </div>
+        <div>
+            <h2>Get Games By Research : </h2>
+            <p>{{ app.request.getSchemeAndHttpHost }}/api/searchGame/ENTRY</p>
+            <input id="entry-get-search-game" placeholder="ENTRY" type="text">
+            <button onclick="getSearchGame()" class="button-6-1">Send Request</button>
+        </div>
+        <div id="api-result-get-search-game">
+
+        </div>
+        <div>
+            <h2>Get Ratings By Game ID : </h2>
+            <p>{{ app.request.getSchemeAndHttpHost }}/api/ratingsByGameId/GAME_ID</p>
+            <input id="game-id-get-rating-by-game-id" placeholder="GAME_ID" type="text">
+            <button onclick="getRatingsByGameId()" class="button-6-1">Send Request</button>
+        </div>
+        <div id="api-result-get-rating-by-game-id">
+
+        </div>
+        <script>
+            function getUserbyId() {
+                $.get("../api/user/" + document.getElementById("user-id-get-user-by-id").value, function (data) {
+                    document.getElementById("api-result-get-user-by-id").innerHTML = JSON.stringify(data);
+                });
+            }
+
+            function getGamebyId() {
+                $.get("../api/gameById/" + document.getElementById("game-id-get-game-by-id").value, function (data) {
+                    document.getElementById("api-result-get-game-by-id").innerHTML = JSON.stringify(data);
+                });
+            }
+
+            function getGames() {
+                $.get("../api/games", function (data) {
+                    document.getElementById("api-result-get-games").innerHTML = JSON.stringify(data);
+                });
+            }
+
+            function getSearchGame() {
+                $.get("../api/searchGame/" + document.getElementById("entry-get-search-game").value, function (data) {
+                    document.getElementById("api-result-get-search-game").innerHTML = JSON.stringify(data);
+                });
+            }
+
+            function getRatingsByGameId() {
+                $.get("../api/ratingsByGameId/" + document.getElementById("game-id-get-rating-by-game-id").value, function (data) {
+                    document.getElementById("api-result-get-rating-by-game-id").innerHTML = JSON.stringify(data);
+                });
+            }
+        </script>
+    </div>
+
+{% endblock %}
+

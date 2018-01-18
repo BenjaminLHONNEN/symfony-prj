@@ -1,0 +1,17 @@
+{% block form_row %}
+    {% for error in form.vars.errors %}
+        <div class="alert-red" style="display: block;">
+            {{ error.message }}
+        </div>
+    {% endfor %}
+
+    <div>
+        {{ form_label(form) }}
+    </div>
+
+    {% if form.vars.errors|length > 0 %}
+        {{ form_widget(form, {attr: {class: 'input-alert-red'}}) }}
+    {% else %}
+        {{ form_widget(form) }}
+    {% endif %}
+{% endblock %}

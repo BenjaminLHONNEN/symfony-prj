@@ -1,0 +1,55 @@
+<div onmousemove="activateHover(event)" class="starParent">
+    <div id="star0" data-number="0" class="star">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+    </div>
+    <div id="star1" data-number="1" class="star">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+    </div>
+    <div id="star2" data-number="2" class="star">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+    </div>
+    <div id="star3" data-number="3" class="star">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+    </div>
+    <div id="star4" data-number="4" class="star">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+    </div>
+    <div id="star5" data-number="5" class="star">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+    </div>
+    <div id="star6" data-number="6" class="star">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+    </div>
+    <div id="star7" data-number="7" class="star">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+    </div>
+    <div id="star8" data-number="8" class="star">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+    </div>
+    <div id="star9" data-number="9" class="star">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+    </div>
+    <div id="notePreview"> ~ | 10 </div>
+</div>
+
+<script>
+    function activateHover(event) {
+        for (var div in event.path) {
+            if (event.path[div].className === "star") {
+                $('#notePreview')[0].innerHTML = (parseInt(event.path[div].dataset.number) + 1) + " | 10";
+                onStarMouseClick(event.path[div]);
+                for (var y = 0; y <= 9; y++) {
+                    if (y <= event.path[div].dataset.number) {
+                        $('#star' + y)[0].innerHTML = "<i class=\"fa fa-star\" aria-hidden=\"true\"></i>";
+                    } else {
+                        $('#star' + y)[0].innerHTML = "<i class=\"fa fa-star-o\" aria-hidden=\"true\"></i>";
+                    }
+                }
+            }
+        }
+    }
+
+    function onStarMouseClick(div) {
+        document.getElementById("{{ inputTarget }}").value = (parseInt(div.dataset.number) + 1);
+    }
+</script>
